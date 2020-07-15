@@ -1,0 +1,18 @@
+{{- if .Values.persistence.enabled -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ template "rabbitmq.fullname" . }}
+  labels:
+    app: {{ template "rabbitmq.fullname" . }}
+    chart: {{ template "rabbitmq.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.rabbitmq.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.rabbitmq.size | quote }}
+  {{ include "rabbitmq.storageClass" . }}
+{{- end -}}

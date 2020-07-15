@@ -1,0 +1,52 @@
+apiVersion: {{ template "rabbitmq.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ template "rabbitmq.fullname" . }}
+  labels:
+    app: {{ template "rabbitmq.name" . }}
+    chart: {{ template "rabbitmq.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "rabbitmq.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "rabbitmq.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: rabbitmq
+        image: {{ .Values.rabbitmq.image.repository }}:{{ .Values.rabbitmq.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        args:
+        
+        env:
+          
+        volumeMounts:
+        - name: rabbitmq-data
+          mountPath: /var/lib/rabbitmq
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        
+     ## volumes:
+     ## - name: data
+     ##   emptyDir: {}
+      volumes:
+        - name: rabbitmq-data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ template "rabbitmq.fullname" . }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
