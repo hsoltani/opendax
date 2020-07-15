@@ -1,0 +1,59 @@
+apiVersion: {{ template "traefik.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ template "traefik.fullname" . }}
+  labels:
+    app: {{ template "traefik.name" . }}
+    chart: {{ template "traefik.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "traefik.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "traefik.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: traefik
+        image: {{ .Values.traefik.image.repository }}:{{ .Values.traefik.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        args:
+        - "--log.level=DEBUG"
+        - "--api.insecure=true"
+        - "--providers.docker=true"
+        - "--providers.docker.exposedbydefault=false"
+        - "--entryPoints.web.address=:80"
+        - "--entryPoints.web.forwardedHeaders.insecure"
+        env:
+          
+        volumeMounts:
+        - name: traefik-data
+          mountPath: "/var/run/docker.sock"
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        - name: https
+          containerPort: 443
+          protocol: TCP
+     ## volumes:
+     ## - name: data
+     ##   emptyDir: {}
+      volumes:
+        - name: traefik-data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ template "traefik.fullname" . }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}

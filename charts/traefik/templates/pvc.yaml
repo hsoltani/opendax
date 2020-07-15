@@ -1,0 +1,18 @@
+{{- if .Values.persistence.enabled -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ template "traefik.fullname" . }}
+  labels:
+    app: {{ template "traefik.fullname" . }}
+    chart: {{ template "traefik.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.traefik.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.traefik.size | quote }}
+  {{ include "traefik.storageClass" . }}
+{{- end -}}
