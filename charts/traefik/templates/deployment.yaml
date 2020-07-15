@@ -31,10 +31,10 @@ spec:
         - "--entryPoints.web.address=:80"
         - "--entryPoints.web.forwardedHeaders.insecure"
         env:
-          
+          /var/run/docker.sock:/var/run/docker.sock
         volumeMounts:
         - name: traefik-data
-          mountPath: "/var/run/docker.sock:/var/run/docker.sock"
+          mountPath: "/var/run/docker.sock"
         ports:
         - name: http
           containerPort: 80
