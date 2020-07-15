@@ -31,7 +31,8 @@ spec:
         - "--entryPoints.web.address=:80"
         - "--entryPoints.web.forwardedHeaders.insecure"
         env:
-          
+          - name: DOCKER_HOST
+            value: tcp://localhost:2375
         volumeMounts:
         - name: traefik-data
           type: HostPath
