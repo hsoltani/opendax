@@ -33,6 +33,16 @@ questions:
     description: "2.1.8 image tag"
     type: string
     label: Image Tag
+  - variable: rabbitmq.image.repository
+    default: "rabbitmq"
+    description: "rabbitmq image name"
+    type: string
+    label: rabbitmq Image Name
+  - variable: rabbitmq.image.tag
+    default: "3.7.6-management"
+    description: "rabbitmq image tag"
+    type: string
+    label: Image Tag
 
 
 
@@ -101,3 +111,34 @@ questions:
     type: pvc
     label: Existing Persistent Volume Claim for traefik
    
+- variable: rabbitmq.service.type
+  default: "ClusterIP"
+  description: "k8s service type for rabbitmq nodes"
+  type: string
+  required: true
+  label: rabbitmq service type
+  group: "rabbitmq Settings"
+- variable: persistence.enabled
+  default: false
+  description: "Enable persistent volume for rabbitmq"
+  type: boolean
+  required: true
+  label: rabbitmq Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "rabbitmq Settings"
+  subquestions:
+  - variable: persistence.size
+    default: "10Gi"
+    description: "rabbitmq Persistent Volume Size"
+    type: string
+    label: rabbitmq Volume Size
+  - variable: persistence.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: storageclass
+    label: Default StorageClass for rabbitmq
+  - variable: persistence.existingClaim
+    default: ""
+    description: "If not empty, uses the specified existing PVC instead of creating new one"
+    type: pvc
+    label: Existing Persistent Volume Claim for rabbitmq
