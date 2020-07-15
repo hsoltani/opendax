@@ -23,6 +23,16 @@ questions:
     description: "redis image tag"
     type: string
     label: Image Tag
+  - variable: traefik.image.repository
+    default: "traefik"
+    description: "traefik image name"
+    type: string
+    label: traefik Image Name
+  - variable: traefik.image.tag
+    default: "2.1.8"
+    description: "2.1.8 image tag"
+    type: string
+    label: Image Tag
 
 
 
@@ -59,3 +69,35 @@ questions:
     type: pvc
     label: Existing Persistent Volume Claim for redis
     
+- variable: traefik.service.type
+  default: "ClusterIP"
+  description: "k8s service type for traefik nodes"
+  type: string
+  required: true
+  label: traefik service type
+  group: "traefik Settings"
+- variable: persistence.traefik.enabled
+  default: false
+  description: "Enable persistent volume for traefik"
+  type: boolean
+  required: true
+  label: traefik Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "traefik Settings"
+  subquestions:
+  - variable: persistence.traefik.size
+    default: "10Gi"
+    description: "traefik Persistent Volume Size"
+    type: string
+    label: traefik Volume Size
+  - variable: persistence.traefik.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: storageclass
+    label: Default StorageClass for traefik
+  - variable: traefik.persistence.existingClaim
+    default: ""
+    description: "If not empty, uses the specified existing PVC instead of creating new one"
+    type: pvc
+    label: Existing Persistent Volume Claim for traefik
+   
