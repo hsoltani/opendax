@@ -64,3 +64,18 @@ persistence:
     # storageClass: "-"
     accessMode: ReadWriteOnce
     size: 8Gi
+
+db:
+  image:
+    repository: "ranchercharts/mysql"
+    tag: "5.7.14"
+
+busybox:
+  image:
+    repository: "ranchercharts/busybox"
+    tag: "1.29.3"
+
+testFramework:
+  image:
+    repository: "ranchercharts/dduportal-bats"
+    tag: "0.4.0"
