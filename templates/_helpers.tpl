@@ -178,8 +178,8 @@ but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else 
             {{- printf "storageClassName: %s" .Values.global.storageClass -}}
         {{- end -}}
     {{- else -}}
-        {{- if .Values.persistence.traefik.storageClass -}}
-              {{- if (eq "-" .Values.persistence.traefik.storageClass) -}}
+        {{- if .Values.persistence.rabbitmq.storageClass -}}
+              {{- if (eq "-" .Values.persistence.rabbitmq.storageClass) -}}
                   {{- printf "storageClassName: \"\"" -}}
               {{- else }}
                   {{- printf "storageClassName: %s" .Values.persistence.rabbitmq.storageClass -}}
