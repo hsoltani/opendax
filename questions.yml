@@ -124,7 +124,7 @@ questions:
     description: "If undefined or null, uses the default StorageClass. Default to null"
     type: storageclass
     label: Default StorageClass for traefik
-  - variable: traefik.persistence.existingClaim
+  - variable: persistence.traefik.existingClaim
     default: ""
     description: "If not empty, uses the specified existing PVC instead of creating new one"
     type: pvc
@@ -137,7 +137,7 @@ questions:
   required: true
   label: rabbitmq service type
   group: "rabbitmq Settings"
-- variable: persistence.enabled
+- variable: persistence.rabbitmq.enabled
   default: false
   description: "Enable persistent volume for rabbitmq"
   type: boolean
@@ -146,17 +146,17 @@ questions:
   show_subquestion_if: true
   group: "rabbitmq Settings"
   subquestions:
-  - variable: persistence.size
+  - variable: persistence.rabbitmq.size
     default: "10Gi"
     description: "rabbitmq Persistent Volume Size"
     type: string
     label: rabbitmq Volume Size
-  - variable: persistence.storageClass
+  - variable: persistence.rabbitmq.storageClass
     default: ""
     description: "If undefined or null, uses the default StorageClass. Default to null"
     type: storageclass
     label: Default StorageClass for rabbitmq
-  - variable: persistence.existingClaim
+  - variable: persistence.rabbitmq.existingClaim
     default: ""
     description: "If not empty, uses the specified existing PVC instead of creating new one"
     type: pvc
@@ -168,27 +168,27 @@ questions:
   type: password
   label: MySQL Password
   group: "MySQL Settings"
-- variable: persistence.enabled
+- variable: persistence.mysql.enabled
   default: "false"
   description: "Enable persistence using PVC"
   type: boolean
   required: true
   label: Persistent Volume Enabled
   show_subquestion_if: true
-  group: "Persistent Volume"
+  group: "MySQL Settings"
   subquestions:
-  - variable: persistence.size
+  - variable: persistence.mysql.size
     default: "8Gi"
     description: "Volume Size"
     type: string
     label: Volume Size
     required: true
-  - variable: persistence.storageClass
+  - variable: persistence.mysql.storageClass
     default: ""
     description: "If undefined or null, uses the default StorageClass. Defaults to null."
     type: storageclass
     label: Default storageClass
-  - variable: persistence.existingClaim
+  - variable: persistence.mysql.existingClaim
     default: ""
     description: "If not empty, uses the specified existing PVC instead of creating new one"
     type: pvc
