@@ -162,11 +162,11 @@ questions:
     type: pvc
     label: Existing Persistent Volume Claim for rabbitmq
 
-- variable: mysqlPassword
+- variable: mysqlRootPassword
   default: ""
   description: "MySQL Password for the new user, defaults to a random 10-character alphanumeric string if not set"
   type: password
-  label: MySQL Password
+  label: MySQL Root Password
   group: "MySQL Settings"
 - variable: persistence.mysql.enabled
   default: "false"
