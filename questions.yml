@@ -43,7 +43,26 @@ questions:
     description: "rabbitmq image tag"
     type: string
     label: Image Tag
-
+  - variable: db.image.repository
+    default: "ranchercharts/mysql"
+    description: "MySQL image name"
+    type: string
+    label: Image Name
+  - variable: imageTag
+    default: "5.7.14"
+    description: "MySQL image tag"
+    type: string
+    label: Image Tag
+  - variable: busybox.image
+    default: "ranchercharts/busybox"
+    description: "Busybox image name"
+    type: string
+    label: Image Image Name
+  - variable: busybox.tag
+    default: "1.29.3"
+    description: "Busybox image tag"
+    type: string
+    label: Busybox Image Tag
 
 
     
@@ -142,3 +161,35 @@ questions:
     description: "If not empty, uses the specified existing PVC instead of creating new one"
     type: pvc
     label: Existing Persistent Volume Claim for rabbitmq
+
+- variable: mysqlPassword
+  default: ""
+  description: "MySQL Password for the new user, defaults to a random 10-character alphanumeric string if not set"
+  type: password
+  label: MySQL Password
+  group: "MySQL Settings"
+- variable: persistence.enabled
+  default: "false"
+  description: "Enable persistence using PVC"
+  type: boolean
+  required: true
+  label: Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "Persistent Volume"
+  subquestions:
+  - variable: persistence.size
+    default: "8Gi"
+    description: "Volume Size"
+    type: string
+    label: Volume Size
+    required: true
+  - variable: persistence.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Defaults to null."
+    type: storageclass
+    label: Default storageClass
+  - variable: persistence.existingClaim
+    default: ""
+    description: "If not empty, uses the specified existing PVC instead of creating new one"
+    type: pvc
+    label: Existing Persistent Volume Claim for mysql
