@@ -23,7 +23,6 @@ spec:
       - name: traefik
         image: {{ .Values.traefik.image.repository }}:{{ .Values.traefik.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        command: ["/bin/chmod", "-R", "777", "/var/run/docker.sock"]
         args:
         - "--log.level=DEBUG"
         - "--api.insecure=true"
