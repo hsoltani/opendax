@@ -73,6 +73,16 @@ questions:
     description: "vault image tag"
     type: string
     label: Image Tag
+  - variable: influxdb.image.repository
+    default: "bitnami/influxdb"
+    description: "influxdb image name"
+    type: string
+    label: influxdb Image Name
+  - variable: influxdb.image.tag
+    default: "1.8.1-debian-10-r3"
+    description: "influxdb image tag"
+    type: string
+    label: Image Tag
 
 
     
@@ -243,4 +253,49 @@ questions:
     type: pvc
     label: Existing Persistent Volume Claim for vault
 
-    
+- variable: influxdb.image.debug
+  default: "false"
+  description: "image debug"
+  type: boolean
+  required: true
+  label: image debug
+  group: "influxdb Settings"
+- variable: influxdb.database
+  default: "my_database"
+  description: "database"
+  type: string
+  required: true
+  label: image database
+  group: "influxdb Settings"
+      
+- variable: influxdb.service.type
+  default: "ClusterIP"
+  description: "k8s service type for influxdb nodes"
+  type: string
+  required: true
+  label: service type
+  group: "influxdb Settings"
+- variable: persistence.influxdb.enabled
+  default: false
+  description: "Enable persistent volume for influxdb"
+  type: boolean
+  required: true
+  label: influxdb Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "influxdb Settings"
+  subquestions:
+  - variable: persistence.influxdb.size
+    default: "10Gi"
+    description: "influxdb Persistent Volume Size"
+    type: string
+    label: influxdb Volume Size
+  - variable: persistence.influxdb.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: storageclass
+    label: Default StorageClass for influxdb
+  - variable: persistence.influxdb.existingClaim
+    default: ""
+    description: "If not empty, uses the specified existing PVC instead of creating new one"
+    type: pvc
+    label: Existing Persistent Volume Claim for influxdb    
