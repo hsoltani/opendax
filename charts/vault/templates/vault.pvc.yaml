@@ -1,0 +1,18 @@
+{{- if .Values.persistence.enabled -}}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ template "vault.fullname" . }}
+  labels:
+    app: {{ template "vault.fullname" . }}
+    chart: {{ template "vault.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.vault.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.vault.size | quote }}
+  {{ include "vault.storageClass" . }}
+{{- end -}}

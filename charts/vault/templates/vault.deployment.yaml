@@ -1,0 +1,58 @@
+apiVersion: {{ template "vault.deployment.apiVersion" . }}
+kind: Deployment
+metadata:
+  name: {{ template "vault.fullname" . }}
+  labels:
+    app: {{ template "vault.name" . }}
+    chart: {{ template "vault.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ template "vault.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "vault.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      securityContext:
+        runAsNonRoot: {{ .Values.securityContext.runAsNonRoot }}
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        capabilities.add: {{ .Values.securityContext.capabilities.add }}
+      containers:
+      - name: vault
+        image: {{ .Values.vault.image.repository }}:{{ .Values.vault.image.tag }}
+        imagePullPolicy: {{ .Values.imagePullPolicy }}
+        args:
+        - "server"
+        env:
+          - name: VAULT_LOCAL_CONFIG
+            value: '{"storage": {"file": { "path": "/vault/data" }}, "listener": {"tcp":{"address": "0.0.0.0:8200","tls_disable":"1"}}}'
+          - name: VAULT_ADDR
+            value: http://vault:8200
+        volumeMounts:
+        - name: data
+          mountPath: /vault
+        ports:
+        - name: vault
+          containerPort: 8200
+          protocol: TCP
+     ## volumes:
+     ## - name: data
+     ##   emptyDir: {}
+      volumes:
+        - name: data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ template "vault.fullname" . }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
