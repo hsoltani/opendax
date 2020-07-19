@@ -36,7 +36,7 @@ spec:
             value: http://vault:8200
         volumeMounts:
         - name: data
-          mountPath: /vault
+          mountPath: /home/vault
         ports:
         - name: vault
           containerPort: 8200
