@@ -63,6 +63,16 @@ questions:
     description: "Busybox image tag"
     type: string
     label: Busybox Image Tag
+  - variable: vault.image.repository
+    default: "vault"
+    description: "vault image name"
+    type: string
+    label: vault Image Name
+  - variable: vault.image.tag
+    default: "1.3.0"
+    description: "vault image tag"
+    type: string
+    label: Image Tag
 
 
     
@@ -193,3 +203,44 @@ questions:
     description: "If not empty, uses the specified existing PVC instead of creating new one"
     type: pvc
     label: Existing Persistent Volume Claim for mysql
+
+- variable: vault.replicaCount
+  default: "1"
+  description: "vault transaction nodes replica count"
+  type: int
+  required: true
+  label: vault replicaCount
+  group: "vault Settings"
+- variable: vault.service.type
+  default: "ClusterIP"
+  description: "k8s service type for geth transaction nodes"
+  type: string
+  required: true
+  label: vault service type
+  group: "vault Settings"
+- variable: persistence.vault.enabled
+  default: false
+  description: "Enable persistent volume for vault"
+  type: boolean
+  required: true
+  label: vault Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "vault Settings"
+  subquestions:
+  - variable: persistence.vault.size
+    default: "10Gi"
+    description: "vault Persistent Volume Size"
+    type: string
+    label: vault Volume Size
+  - variable: persistence.vault.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: storageclass
+    label: Default StorageClass for vault
+  - variable: persistence.vault.existingClaim
+    default: ""
+    description: "If not empty, uses the specified existing PVC instead of creating new one"
+    type: pvc
+    label: Existing Persistent Volume Claim for vault
+
+    
