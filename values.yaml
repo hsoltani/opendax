@@ -119,3 +119,25 @@ persistence:
     # storageClass: "-"
     accessMode: ReadWriteOnce
     size: 8Gi
+    
+influxdb:
+  image:
+    repository: bitnami/influxdb
+    tag: 1.8.1-debian-10-r3
+
+
+
+
+  persistence:
+    enabled: true
+    influxdb:
+    ## traefik data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+      accessMode: ReadWriteOnce
+      size: 8Gi
