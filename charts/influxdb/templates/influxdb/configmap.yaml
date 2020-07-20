@@ -7,11 +7,5 @@ metadata:
     {{- include "influxdb.labels" . | nindent 4 }}
     app.kubernetes.io/component: influxdb
 data:
-{{- if (.Files.Glob "config/influxdb/build_candles.sql") }}
 {{ (.Files.Glob "config/influxdb/build_candles.sql").AsConfig | indent 2 }}
-{{- else if .Values.influxdb.configuration }}
-  build_candles.sql: |-
-    # User-supplied configuration:
-{{ tpl .Values.influxdb.configuration . | indent 4 }}
-{{- end }}
 {{- end }}
