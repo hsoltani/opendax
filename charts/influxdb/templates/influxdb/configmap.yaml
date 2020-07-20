@@ -1,4 +1,4 @@
-{{- if and (or (.Files.Glob "config/influxdb/build_candles.sql") .Values.influxdb.configuration) (not .Values.influxdb.existingConfiguration) }}
+{{- if (.Files.Glob "config/influxdb/build_candles.sql") }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
