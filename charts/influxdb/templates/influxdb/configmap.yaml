@@ -1,4 +1,4 @@
-{{- if and (or (.Files.Glob "opendax/config/influxdb/build_candles.sql") .Values.influxdb.configuration) (not .Values.influxdb.existingConfiguration) }}
+{{- if and (or (.Files.Glob "config/influxdb/build_candles.sql") .Values.influxdb.configuration) (not .Values.influxdb.existingConfiguration) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,8 +7,8 @@ metadata:
     {{- include "influxdb.labels" . | nindent 4 }}
     app.kubernetes.io/component: influxdb
 data:
-{{- if (.Files.Glob "opendax/config/influxdb/build_candles.sql") }}
-{{ (.Files.Glob "opendax/config/influxdb/build_candles.sql").AsConfig | indent 2 }}
+{{- if (.Files.Glob "config/influxdb/build_candles.sql") }}
+{{ (.Files.Glob "config/influxdb/build_candles.sql").AsConfig | indent 2 }}
 {{- else if .Values.influxdb.configuration }}
   build_candles.sql: |-
     # User-supplied configuration:
