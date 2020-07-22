@@ -1,4 +1,4 @@
-{{- if (.Files.Glob "config/influxdb/build_candles.sql") }}
+{{- if (.Files.Glob "config/build_candles.sql") }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,5 +7,5 @@ metadata:
     {{- include "influxdb.labels" . | nindent 4 }}
     app.kubernetes.io/component: influxdb
 data:
-{{ (.Files.Glob "config/influxdb/build_candles.sql").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/build_candles.sql").AsConfig | indent 2 }}
 {{- end }}
