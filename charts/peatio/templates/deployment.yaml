@@ -23,7 +23,7 @@ spec:
       - name: peatio
         image: {{ .Values.peatio.image.repository }}:{{ .Values.peatio.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        command: 
+        args: 
         - bash -c "bin/link_config && bundle exec puma --config config/puma.rb"
         
         env:
