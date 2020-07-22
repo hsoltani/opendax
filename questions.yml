@@ -310,3 +310,35 @@ questions:
     description: "If not empty, uses the specified existing PVC instead of creating new one"
     type: pvc
     label: Existing Persistent Volume Claim for influxdb    
+
+- variable: peatio.service.type
+  default: "ClusterIP"
+  description: "k8s service type for peatio nodes"
+  type: string
+  required: true
+  label: service type
+  group: "peatio Settings"
+- variable: persistence.peatio.enabled
+  default: false
+  description: "Enable persistent volume for peatio"
+  type: boolean
+  required: true
+  label: peatio Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "peatio Settings"
+  subquestions:
+  - variable: persistence.peatio.size
+    default: "10Gi"
+    description: "peatio Persistent Volume Size"
+    type: string
+    label: peatio Volume Size
+  - variable: persistence.peatio.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: storageclass
+    label: Default StorageClass for peatio
+  - variable: persistence.peatio.existingClaim
+    default: ""
+    description: "If not empty, uses the specified existing PVC instead of creating new one"
+    type: pvc
+    label: Existing Persistent Volume Claim for peatio    
