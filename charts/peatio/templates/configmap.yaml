@@ -1,4 +1,4 @@
-{{ if  ( (.Files.Glob "config/*.yml") or (.Files.Glob "config/management_api_v1.yml") )}}
+{{ if   (.Files.Glob "config/*.yml") }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
