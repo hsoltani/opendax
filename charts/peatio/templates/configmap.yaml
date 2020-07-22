@@ -1,4 +1,4 @@
-{{ if  ( (.Files.Glob "config/plugins.yml") or (.Files.Glob "config/management_api_v1.yml") )}}
+{{ if  ( (.Files.Glob "config") or (.Files.Glob "config/management_api_v1.yml") )}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,7 +7,7 @@ metadata:
     {{- include "peatio.labels" . | nindent 4 }}
     app.kubernetes.io/component: peatio
 data:
-{{- if (.Files.Glob "config/plugins.yml") }}
-{{ (.Files.Glob "config/plugins.yml").AsConfig | indent 4 }}
+{{- if (.Files.Glob "config") }}
+{{ (.Files.Glob "config").AsConfig | indent 4 }}
 {{- end }}
 {{ end }}
