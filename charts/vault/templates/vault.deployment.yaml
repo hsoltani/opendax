@@ -40,7 +40,7 @@ spec:
             value: "true"
         volumeMounts:
         - name: data
-          mountPath: /data
+          mountPath: /
         ports:
         - name: vault
           containerPort: 8200
