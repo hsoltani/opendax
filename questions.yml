@@ -83,6 +83,17 @@ questions:
     description: "influxdb image tag"
     type: string
     label: Image Tag
+  - variable: peatio.image.repository
+    default: "quay.io/openware/peatio"
+    description: "peatio image name"
+    type: string
+    label: peatio Image Name
+  - variable: peatio.image.tag
+    default: "2.4.7"
+    description: "peatio image tag"
+    type: string
+    label: Image Tag
+
 
 
     
