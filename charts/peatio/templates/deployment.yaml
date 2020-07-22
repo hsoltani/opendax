@@ -96,7 +96,7 @@ spec:
  
 
         volumeMounts:
-        - name: redis-data
+        - name: peatio-data
           mountPath: /data
         ports:
         - name: http
@@ -105,10 +105,10 @@ spec:
         
      
       volumes:
-        - name: redis-data
+        - name: peatio-data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ template "redis.fullname" . }}
+            claimName: {{ template "peatio.fullname" . }}
           {{- else }}
           emptyDir: {}
           {{- end }}
