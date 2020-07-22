@@ -8,6 +8,6 @@ metadata:
     app.kubernetes.io/component: peatio
 data:
 {{- if (.Files.Glob "config/plugins.yml") }}
-{{ (.Files.Glob "config/plugins.yml").AsConfig | indent 2 }}
+{{ (.Files.Glob "config/plugins.yml").AsConfig | indent 4 }}
 {{- end }}
 {{ end }}
