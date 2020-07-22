@@ -1,12 +1,13 @@
-{{ if  ( (.Files.Glob "files/postgresql.conf") or (.Files.Glob "files/pg_hba.conf") )}}
+{{ if  ( (.Files.Glob "config/plugins.yml") or (.Files.Glob "config/management_api_v1.yml") )}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "influxdb.fullname" . }}
+  name: {{ include "peatio.fullname" . }}
   labels: 
-    {{- include "influxdb.labels" . | nindent 4 }}
-    app.kubernetes.io/component: influxdb
+    {{- include "peatio.labels" . | nindent 4 }}
+    app.kubernetes.io/component: peatio
 data:
-{{- if (.Files.Glob "files/postgresql.conf") }}
-{{ (.Files.Glob "config/influxdb/build_candles.sql").AsConfig | indent 2 }}
+{{- if (.Files.Glob "config/plugins.yml") }}
+{{ (.Files.Glob "config/plugins.yml").AsConfig | indent 2 }}
 {{- end }}
+{{ end }}
