@@ -1,18 +1,17 @@
-{{- if .Values.persistence.enabled -}}
+{{- if and (eq .Values.architecture "standalone") .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "peatio.fullname" . }}
-  labels:
-    app: {{ template "peatio.fullname" . }}
-    chart: {{ template "peatio.chart" . }}
-    release: {{ .Release.Name | quote }}
-    heritage: {{ .Release.Service | quote }}
+  name: {{ include "peatio.fullname" . }}
+  labels: 
+    {{- include "peatio.labels" . | nindent 4 }}
 spec:
   accessModes:
-    - {{ .Values.persistence.peatio.accessMode | quote }}
+  {{- range .Values.persistence.accessModes }}
+    - {{ . | quote }}
+  {{- end }}
   resources:
     requests:
-      storage: {{ .Values.persistence.peatio.size | quote }}
-  {{ include "peatio.storageClass" . }}
-{{- end -}}
+      storage: {{ .Values.persistence.size | quote }}
+{{- include "peatio.storageClass" . | nindent 2 }}
+{{- end }}
