@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: {{ template "peatio.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
   name: {{ template "peatio.fullname" . }}
@@ -30,11 +30,11 @@ spec:
           - name: RAILS_ENV
             value: production
           - name: RAILS_ROOT
-            value: /home/app
+            value: "/home/app"
           - name: PORT
-            value: 8000
+            value: "8000"
           - name: URL_HOST
-            value: www.app.local
+            value: "www.app.local"
           - name: LOG_LEVEL
             value: warn
           - name: ADMIN
