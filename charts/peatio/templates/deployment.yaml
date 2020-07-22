@@ -81,17 +81,19 @@ spec:
             value: 5672
           - name: EVENT_API_RABBITMQ_USERNAME
             value: guest
-            
+          - name: EVENT_API_RABBITMQ_PASSWORD
+            value: guest
+          - name: MINIMUM_MEMBER_LEVEL_FOR_DEPOSIT
+            value: 1
+          - name: MINIMUM_MEMBER_LEVEL_FOR_WITHDRAW
+            value: 3
+          - name: MINIMUM_MEMBER_LEVEL_FOR_TRADING
+            value: 2
+          - name: SECRET_KEY_BASE
+            value: faiba2shei0Ae5gahCh4aipoh3meyaFi
+          - name: FORCE_SECURE_CONNECTION
+            value: "false"
  
-
-EVENT_API_RABBITMQ_PASSWORD=guest
-
-MINIMUM_MEMBER_LEVEL_FOR_DEPOSIT=1
-MINIMUM_MEMBER_LEVEL_FOR_WITHDRAW=3
-MINIMUM_MEMBER_LEVEL_FOR_TRADING=2
-
-SECRET_KEY_BASE=faiba2shei0Ae5gahCh4aipoh3meyaFi
-FORCE_SECURE_CONNECTION="false"
 
         volumeMounts:
         - name: redis-data
