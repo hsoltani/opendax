@@ -211,7 +211,7 @@ spec:
           resources: {{- toYaml .Values.influxdb.resources | nindent 12 }}
           {{- end }}
           volumeMounts:
-            {{- if (.Files.Glob "config/influxdb/build_candles.sql") }}
+            {{- if (.Files.Glob "config/build_candles.sql") }}
             - name: influxdb-config
               mountPath: /build_candles.sql
             {{- end }}
@@ -232,7 +232,7 @@ spec:
               mountPath: /var/lib/influxdb
             {{- end }}
       volumes:
-        {{- if (.Files.Glob "config/influxdb/build_candles.sql") }}
+        {{- if (.Files.Glob "config/build_candles.sql") }}
         - name: influxdb-config
           configMap:
             name: {{ include "influxdb.configmapName" . }}
