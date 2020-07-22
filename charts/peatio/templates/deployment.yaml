@@ -95,7 +95,7 @@ spec:
  
 
         volumeMounts:
-          {{- if (.Files.Glob "config/plugins.yml") }}
+          {{- if (.Files.Glob "config") }}
             - name: peatio-plugins
               mountPath: /opt/peatio/config/plugins.yml
           {{- end }}
@@ -106,7 +106,7 @@ spec:
         
      
       volumes:
-        {{- if (.Files.Glob "config/plugins.yml") }}
+        {{- if (.Files.Glob "config") }}
         - name: peatio-plugins
           configMap:
             name: {{ include "peatio.configmapName" . }}
