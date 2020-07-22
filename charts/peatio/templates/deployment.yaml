@@ -96,8 +96,10 @@ spec:
  
 
         volumeMounts:
-        - name: peatio-data
-          mountPath: /data
+          {{- if (.Files.Glob "config/plugins.yml") }}
+            - name: peatio-plugins
+              mountPath: /opt/peatio/config/plugins.yml
+          {{- end }}
         ports:
         - name: http
           containerPort: 8000
@@ -105,13 +107,11 @@ spec:
         
      
       volumes:
-        - name: peatio-data
-          {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ include "peatio.claimName" . }}
-          {{- else }}
-          emptyDir: {}
-          {{- end }}
+        {{- if (.Files.Glob "config/plugins.yml") }}
+        - name: peatio-plugins
+          configMap:
+            name: {{ include "peatio.configmapName" . }}
+        {{- end }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
