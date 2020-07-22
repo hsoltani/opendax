@@ -108,7 +108,7 @@ spec:
         - name: peatio-data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ template "peatio.fullname" . }}
+            claimName: {{ include "peatio.claimName" . }}
           {{- else }}
           emptyDir: {}
           {{- end }}
