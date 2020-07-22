@@ -52,7 +52,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Return the proper Storage Class for InfluxDB
 */}}
-{{- define "influxdb.storageClass" -}}
+{{- define "peatio.storageClass" -}}
 {{/*
 Helm 2.11 supports the assignment of a value to a variable defined in a different scope,
 but Helm 2.9 and 2.10 does not support it, so we need to implement this if-else logic.
