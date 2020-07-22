@@ -38,6 +38,15 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 {{- end -}}
 
+{{/*
+Common labels
+*/}}
+{{- define "peatio.labels" -}}
+app.kubernetes.io/name: {{ include "peatio.name" . }}
+helm.sh/chart: {{ include "peatio.chart" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end -}}
 
 
 {{/*
