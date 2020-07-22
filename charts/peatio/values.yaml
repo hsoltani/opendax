@@ -4,17 +4,17 @@ imagePullPolicy: IfNotPresent
 # ref: https://kubernetes.io/docs/user-guide/node-selection/
 nodeSelector: {}
 
-redis:
+peatio:
   image:
-    repository: redis
-    tag: 4.0.10
+    repository: quay.io/openware/peatio
+    tag: 2.4.7
 
 
 
 
 persistence:
   enabled: true
-  redis:
+  peatio:
     ## traefik data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
