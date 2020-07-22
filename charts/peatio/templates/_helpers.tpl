@@ -49,6 +49,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
 {{/*
+Return the peatio configuration configmap.
+*/}}
+{{- define "peatio.configmapName" -}}
+{{- if .Values.peatio.existingConfiguration -}}
+    {{- printf "%s" (tpl .Values.peatio.existingConfiguration $) -}}
+{{- else -}}
+    {{- printf "%s" (include "peatio.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Return the peatio PVC name.
 */}}
 {{- define "peatio.claimName" -}}
