@@ -1,0 +1,36 @@
+- name:             Ethereum Deposit Wallet
+  blockchain_key:   eth-testnet
+  currency_id:      eth
+  address:          'changeme'
+  kind:             deposit
+  max_balance:      0.0
+  status:           active
+  gateway:          parity
+  settings:
+    uri:            http://parity:8545
+    secret:         'changeme'
+- name:             Ethereum Hot Wallet
+  blockchain_key:   eth-testnet
+  currency_id:      eth
+  address:          'changeme'
+  kind:             hot
+  max_balance:      100.0
+  status:           active
+  gateway:          parity
+  settings:
+    uri:            http://parity:8545
+    secret:         'changeme'
+- name:             Ethereum Warm Wallet
+  blockchain_key:   eth-testnet
+  currency_id:      eth
+  address:          'changeme'
+  kind:             warm
+  max_balance:      1000.0
+  status:           active
+  gateway:          parity
+  settings:
+    uri:            http://parity:8545
+    secret:         'changeme'
+
+
+

@@ -1,0 +1,12 @@
+- key:               eth-testnet
+  name:              Ethereum Testnet
+  client:            parity
+  server:            http://parity:8545
+  height:            8670000
+  min_confirmations: 6
+  explorer:
+    address:         https://etherscan.io/address/#{address}
+    transaction:     https://etherscan.io/tx/#{txid}
+  status:            active
+
+
