@@ -48,6 +48,17 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
 
+{{/*
+Return the peatio PVC name.
+*/}}
+{{- define "peatio.claimName" -}}
+{{- if .Values.persistence.existingClaim }}
+    {{- printf "%s" (tpl .Values.persistence.existingClaim $) -}}
+{{- else -}}
+    {{- printf "%s" (include "peatio.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
 
 {{/*
 Return the proper Storage Class for InfluxDB
